@@ -1,0 +1,27 @@
+{
+  "name": "cribl_00",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dc9701/Cribl_00.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/dc9701/Cribl_00/issues"
+  },
+  "homepage": "https://github.com/dc9701/Cribl_00#readme",
+  "devDependencies": {
+    "jest": "^30.2.0"
+  }
+}
