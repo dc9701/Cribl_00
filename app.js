@@ -72,6 +72,7 @@ function splitter(conf_directory) {
             if (idx == -1) {
                 part_1 = data;
                 writeToSocket(part_1, outSocks[sockIdx], localSocket);
+                console.log("[DCC_DEBUG_00] IDX:", idx);
             }
             else {
                 part_1 = data.slice(0, idx + 1); /* include the line termination */
@@ -80,6 +81,9 @@ function splitter(conf_directory) {
                 sockIdx++;
                 sockIdx %= outSocks.length;
                 writeToSocket(part_2, outSocks[sockIdx], localSocket);
+                console.log(`[DCC_DEBUG_01] IDX: ${idx}, SOCKIDX: ${sockIdx}`);
+                console.log(`    [DCC_DEBUG_02] PART_1.length: ${part_1.length}`);
+                console.log(`    [DCC_DEBUG_03] PART_2.length: ${part_2.length}`);
             }
         });
     });

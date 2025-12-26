@@ -1,0 +1,7 @@
+{
+    "tcp" : {
+        "host" : "localhost",
+        "port" : 9997,
+        "_comment": { "host" : "splitter" }
+    }
+}

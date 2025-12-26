@@ -1,0 +1,16 @@
+{
+    "tcp" : [
+        {
+            "host" : "localhost",
+            "port" : 9998,
+            "_comment_01": { "host" : "target_1" },
+            "_comment_02": { "port" : 9997 }
+        },
+        {
+            "host" : "localhost",
+            "port" : 9999,
+            "_comment_01": { "host" : "target_2" },
+            "_comment_02": { "port" : 9997 }
+        }
+    ]
+}
