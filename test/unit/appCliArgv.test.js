@@ -58,7 +58,7 @@ test('Agent should exit w/ status = 1 and display ERROR message if INVALID ARGV 
 });
 
 test.after(() => {
-  // Delete the large output file (events.log), if it exists
+  // Delete the large output file spec'd in outputs.json (or 'events.log', by default), if it exists.
   var data = fs.readFileSync('target/outputs.json');
   var json = JSON.parse(data);
   var filename = json.file || 'events.log';

@@ -28,7 +28,8 @@ function agent(agent_dir) {
         console.log(error);
     });
 }
-function writeToSocket(data, remoteSocket, localSocket) {
+// DCC function writeToSocket(data, remoteSocket, localSocket) {
+async function writeToSocket(data, remoteSocket, localSocket) {
     var flushed = remoteSocket.write(data);
     if (!flushed) {
         // We could not write to one of the targets
@@ -77,13 +78,30 @@ function splitter(conf_directory) {
             else {
                 part_1 = data.slice(0, idx + 1); /* include the line termination */
                 part_2 = data.slice(idx + 1);
+                //* DCC
                 writeToSocket(part_1, outSocks[sockIdx], localSocket);
+                console.log(`[DCC_DEBUG_01a] IDX: ${idx}, SOCKIDX: ${sockIdx}`);
+                console.log(`    [DCC_DEBUG_01b] PART_1.length: ${part_1.length}`);
                 sockIdx++;
                 sockIdx %= outSocks.length;
                 writeToSocket(part_2, outSocks[sockIdx], localSocket);
-                console.log(`[DCC_DEBUG_01] IDX: ${idx}, SOCKIDX: ${sockIdx}`);
-                console.log(`    [DCC_DEBUG_02] PART_1.length: ${part_1.length}`);
-                console.log(`    [DCC_DEBUG_03] PART_2.length: ${part_2.length}`);
+                console.log(`[DCC_DEBUG_02a] IDX: ${idx}, SOCKIDX: ${sockIdx}`);
+                console.log(`    [DCC_DEBUG_02b] PART_2.length: ${part_2.length}`);
+                // DCC */
+                /* DCC
+                writeToSocket(part_1, outSocks[sockIdx], localSocket)
+                .then(() => {
+                    console.log(`[DCC_DEBUG_01a] IDX: ${idx}, SOCKIDX: ${sockIdx}`);
+                    console.log(`    [DCC_DEBUG_01b] PART_1.length: ${part_1.length}`);
+                    sockIdx++;
+                    sockIdx %= outSocks.length;
+                    writeToSocket(part_2, outSocks[sockIdx], localSocket)
+                    .then(() => {
+                        console.log(`[DCC_DEBUG_02a] IDX: ${idx}, SOCKIDX: ${sockIdx}`);
+                        console.log(`    [DCC_DEBUG_02b] PART_2.length: ${part_2.length}`);
+                    });
+                });
+                // DCC */
             }
         });
     });
@@ -106,6 +124,7 @@ function target(conf_directory) {
             fs.appendFile(outputfile, data, function () {
                 // written to file
                 // console.debug("Written to file");
+                console.log(`[DCC_DEBUG_${conf_directory}] WROTE data.length: ${data.length}`);
             });
         });
     });
