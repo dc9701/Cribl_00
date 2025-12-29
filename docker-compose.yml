@@ -2,10 +2,9 @@ services:
   splitter:
     build: .
     command: ["node", "app.js", "splitter"]
+    hostname: splitter
     ports:
       - "9997"
-    environment:
-      NODE_ENV: splitter
     depends_on:
       - target_1
       - target_2
@@ -14,29 +13,29 @@ services:
 
   target_1:
     build: .
-    command: ["node", "app.js", "target_1"]
+    command: ["node", "app.js", "target"]
+    hostname: target_1
     ports:
       - "9997"
-    environment:
-      NODE_ENV: target_1
     networks:
       - cribl-network
 
   target_2:
     build: .
-    command: ["node", "app.js", "target_2"]
+    command: ["node", "app.js", "target"]
+    hostname: target_2
     ports:
       - "9997"
-    environment:
-      NODE_ENV: target_2
     networks:
       - cribl-network
 
   test:
     build: .
-    command:
-      - node --test test/unit/*  # Run unit tests.
-      - npm test -- --testPathPatterns=integration  # Run integration tests.
+    # Run unit tests using built-in node test runner, and integration tests using Jest.
+    # NOTE: Integration tests will NOT be run if the unit tests fail (due to using '&&').
+    command: >
+      sh -c "node --test test/unit/* &&
+      npm test -- --testPathPatterns=integration"
     ports:
       - "9997"
     environment:
