@@ -68,5 +68,4 @@ test.after(() => {
       console.log(`No output file (${outputFile}) to delete; continuing...`);
     }
   });
-  
 });

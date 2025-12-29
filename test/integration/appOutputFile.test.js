@@ -1,16 +1,15 @@
 // appOutputFile.test.js - Verify resultant output file (events.log) matches the original input file (large_1M_events.log).
-const { exec } = require('child_process');
 const fs = require('fs');
-const path = require('path');
+const { exec } = require('child_process');
 const { promisify } = require('util');
-
 const execPromise = promisify(exec);
-const inputPath = 'agent/inputs/large_1M_events.log';
-const outputPath = 'events.log';
 
 describe('Verify Output File Content', () => {
-  // Delete the output file if it exists before running tests.
+  const inputPath = 'agent/inputs/large_1M_events.log';
+  const outputPath = 'events.log';
+
   beforeEach(() => {
+    // Delete the output file if it exists before running tests.
     if (fs.existsSync(outputPath)) {
       fs.unlinkSync(outputPath);
     }

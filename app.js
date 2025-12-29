@@ -28,8 +28,8 @@ function agent(agent_dir) {
         console.log(error);
     });
 }
-// DCC function writeToSocket(data, remoteSocket, localSocket) {
-async function writeToSocket(data, remoteSocket, localSocket) {
+// DCC async function writeToSocket(data, remoteSocket, localSocket) {
+function writeToSocket(data, remoteSocket, localSocket) {
     var flushed = remoteSocket.write(data);
     if (!flushed) {
         // We could not write to one of the targets
