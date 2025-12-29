@@ -19,6 +19,8 @@ services:
       - "9997"
     networks:
       - cribl-network
+    volumes:
+      - app:/app
 
   target_2:
     build: .
@@ -28,8 +30,10 @@ services:
       - "9997"
     networks:
       - cribl-network
+    volumes:
+      - app:/app
 
-  test:
+  test-agent:
     build: .
     # Run unit tests using built-in node test runner, and integration tests using Jest.
     # NOTE: Integration tests will NOT be run if the unit tests fail (due to using '&&').
@@ -39,12 +43,18 @@ services:
     ports:
       - "9997"
     environment:
-      NODE_ENV: test
+      # Avoid Node.js v25.x Warning: `--localstorage-file` was provided without a valid path
+      NODE_OPTIONS: --no-experimental-webstorage
     depends_on:
       - splitter
     networks:
       - cribl-network
+    volumes:
+      - app:/app
 
 networks:
   cribl-network:
     driver: bridge  # Allow all nodes to connect.
+
+volumes:
+  app:

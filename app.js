@@ -73,20 +73,18 @@ function splitter(conf_directory) {
             if (idx == -1) {
                 part_1 = data;
                 writeToSocket(part_1, outSocks[sockIdx], localSocket);
-                console.log("[DCC_DEBUG_00] IDX:", idx);
+                // DCC console.log("[DCC_DEBUG_00] IDX:", idx);
             }
             else {
                 part_1 = data.slice(0, idx + 1); /* include the line termination */
                 part_2 = data.slice(idx + 1);
                 //* DCC
                 writeToSocket(part_1, outSocks[sockIdx], localSocket);
-                // DCC console.log(`[DCC_DEBUG_01a] IDX: ${idx}, SOCKIDX: ${sockIdx}`);
-                // DCC console.log(`    [DCC_DEBUG_01b] PART_1.length: ${part_1.length}`);
+                // DCC console.log(`[DCC_DEBUG_01] SOCKIDX: ${sockIdx}, PART_1.length: ${part_1.length}`);
                 sockIdx++;
                 sockIdx %= outSocks.length;
                 writeToSocket(part_2, outSocks[sockIdx], localSocket);
-                // DCC console.log(`[DCC_DEBUG_02a] IDX: ${idx}, SOCKIDX: ${sockIdx}`);
-                // DCC console.log(`    [DCC_DEBUG_02b] PART_2.length: ${part_2.length}`);
+                // DCC console.log(`    [DCC_DEBUG_02] SOCKIDX: ${sockIdx}, PART_2.length: ${part_2.length}`);
                 // DCC */
                 /* DCC
                 writeToSocket(part_1, outSocks[sockIdx], localSocket)
@@ -110,6 +108,9 @@ function splitter(conf_directory) {
     });
 }
 function target(conf_directory) {
+    // DCC vvv ===================================================================================================
+    const hostname = os.hostname();
+    // DCC ^^^ ===================================================================================================
     console.log("working as target");
     var data = fs.readFileSync(conf_directory + "/outputs.json");
     var json = JSON.parse(data);
@@ -124,7 +125,7 @@ function target(conf_directory) {
             fs.appendFile(outputfile, data, function () {
                 // written to file
                 // console.debug("Written to file");
-                // DCC console.log(`[DCC_DEBUG_${conf_directory}] WROTE data.length: ${data.length}`);
+                // DCC console.log(`[DCC_DEBUG_${hostname}] WROTE data.length: ${data.length}`);
             });
         });
     });
