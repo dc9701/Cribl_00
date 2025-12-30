@@ -1,9 +1,7 @@
 name: Cribl CI/CD
-
+# Workflow to build and test Cribl QA Engineering Take Home Project
 on:
   push:
-    branches:
-      - main
   workflow_dispatch:
 
 jobs:
@@ -15,22 +13,22 @@ jobs:
       id-token: write
 
     steps:
+      # Setup dependencies.
       - name: Checkout repository
         uses: actions/checkout@v5
-
-      - name: Set up Docker Compose
-        uses: docker/setup-buildx-action@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: '25.x'
-
+      - name: Set up Docker Compose
+        uses: docker/setup-compose-action@v2
+      # Start containers and run tests.
       - name: Build and start containers (target_1, target_2 & splitter)
         run: docker-compose up --build -d
-
       - name: Wait for containers to be ready
         uses: jakejarvis/wait-action@master
         with:
           time: '45s'
-
       - name: Run tests and generate Allure results
         # Replace 'your-test-service' with the actual name of your test service in docker-compose.yml
         # Replace 'npm test' with your actual test command which produces Allure results (e.g., mocha, jest with allure reporter)
