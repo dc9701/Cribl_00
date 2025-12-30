@@ -39,7 +39,7 @@ services:
     # NOTE: Integration tests will NOT be run if the unit tests fail (due to using '&&').
     command: >
       sh -c "node --test test/unit/* &&
-      npm test -- --testPathPatterns=integration"
+      npm test -- --testPathPatterns=integration --test-reporter node-test-junit-reporter --test-reporter-destination allure-results/report.xml"
     ports:
       - "9997"
     environment:
@@ -51,7 +51,6 @@ services:
       - cribl-network
     volumes:
       - app:/app
-      - allure-results:/app/allure-results
 
 networks:
   cribl-network:
@@ -59,4 +58,3 @@ networks:
 
 volumes:
   app:  # Enable sharing of output file (events.log).
-  allure-results:
