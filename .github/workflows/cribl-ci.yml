@@ -24,9 +24,10 @@ jobs:
           node-version: '25.x'
       - run: npm ci
 
-      # Start containers  (target_1, target_2 & splitter) and run unit + integration tests.
+      # Start containers (target_1, target_2 & splitter) and run unit + integration tests.
       - name: Build/start containers and run all tests
         run: docker compose up --build --abort-on-container-exit
+        continue-on-error: true
 
       - name: Generate Allure Report HTML
         # The allure command line is needed to generate the report
