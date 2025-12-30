@@ -51,6 +51,7 @@ services:
       - cribl-network
     volumes:
       - app:/app
+      - allure-results:/app/allure-results
 
 networks:
   cribl-network:
@@ -58,3 +59,4 @@ networks:
 
 volumes:
   app:  # Enable sharing of output file (events.log).
+  allure-results:
