@@ -42,17 +42,17 @@ jobs:
           path: allure-report
           name: github-pages
           
-#  deploy-report:
-#    needs: build-test
-#    runs-on: ubuntu-latest
-#    permissions:
-#      contents: write
-#      pages: write
-#      id-token: write
-#    environment:
-#      name: github-pages
-#      url: ${{ steps.deployment.outputs.page_url }} # Link to the published report
-#    steps:
-#      - name: Deploy to GitHub Pages
-#        id: deployment
-#        uses: actions/deploy-pages@v4 # Deploys the 'github-pages' artifact
+  deploy-report:
+    needs: build-test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }} # Link to the published report
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4 # Deploys the 'github-pages' artifact
