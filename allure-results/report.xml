@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<testsuites>
+	<testcase name="Agent should run successfully if VALID ARGV (&amp;quot;agent&amp;quot;) is passed" time="0.172299" classname="test" file="/Users/dcc/Library/Mobile Documents/com~apple~CloudDocs/Documents/~Corporate/Teradata/workspace/Cribl_00/test/unit/appCliArgv.test.js" failure="Expected values to be strictly equal:1 !== 0">
+		<failure type="uncaughtException" message="Expected values to be strictly equal:1 !== 0">
+Error [ERR_TEST_FAILURE]: Expected values to be strictly equal:
+
+1 !== 0
+
+    at process.emit (node:events:508:28) {
+  code: 'ERR_TEST_FAILURE',
+  failureType: 'uncaughtException',
+  cause: AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 0
+  
+      at ChildProcess.&lt;anonymous> (/Users/dcc/Library/Mobile Documents/com~apple~CloudDocs/Documents/~Corporate/Teradata/workspace/Cribl_00/test/unit/appCliArgv.test.js:15:12)
+      at ChildProcess.emit (node:events:508:28)
+      at maybeClose (node:internal/child_process:1085:16)
+      at Socket.&lt;anonymous> (node:internal/child_process:456:11)
+      at Socket.emit (node:events:508:28)
+      at Pipe.&lt;anonymous> (node:net:346:12) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+}
+		</failure>
+	</testcase>
+	<testcase name="Agent should exit w/ status = 1 and display USAGE message if NO ARGV is passed" time="0.128031" classname="test" file="/Users/dcc/Library/Mobile Documents/com~apple~CloudDocs/Documents/~Corporate/Teradata/workspace/Cribl_00/test/unit/appCliArgv.test.js"/>
+	<testcase name="Agent should exit w/ status = 1 and display USAGE message if MORE THAN ONE ARGV is passed" time="0.125842" classname="test" file="/Users/dcc/Library/Mobile Documents/com~apple~CloudDocs/Documents/~Corporate/Teradata/workspace/Cribl_00/test/unit/appCliArgv.test.js"/>
+	<testcase name="Agent should exit w/ status = 1 and display ERROR message if INVALID ARGV is passed" time="0.133303" classname="test" file="/Users/dcc/Library/Mobile Documents/com~apple~CloudDocs/Documents/~Corporate/Teradata/workspace/Cribl_00/test/unit/appCliArgv.test.js"/>
+	<!-- tests 4 -->
+	<!-- suites 0 -->
+	<!-- pass 3 -->
+	<!-- fail 1 -->
+	<!-- cancelled 0 -->
+	<!-- skipped 0 -->
+	<!-- todo 0 -->
+	<!-- duration_ms 747.657892 -->
+</testsuites>
