@@ -1,4 +1,4 @@
-name: Node.js Docker CI/CD with Allure Reports
+name: Cribl CI/CD
 
 on:
   push:
