@@ -1,7 +1,7 @@
 ## Cribl - QA Engineering: Take Home Project (David Cooper)
 
 ### 1. Overview
-<img src="images/TOGA_GOAT.jpg" alt="TOGA GOAT" align="right" width="110" />
+<img src="images/TOGA_GOAT.jpg" alt="TOGA GOAT" align="right" width="150" />
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
 labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 
