@@ -22,7 +22,7 @@ describe('Verify Output File Content', () => {
       const { stdout, stderr } = await execPromise(`diff -u ${inputPath} ${outputPath}`, { maxBuffer: 50 * 1024 * 1024 },)
 
     } catch (err) {
-      throw new Error(`Error running appOutputFile.test: ${err.stderr || err.message}:\n. . .\n${err.stdout.slice(-10000)}`);
+      throw new Error(`Error running appOutputFile.test: ${err.stderr || err.message}:\n. . .\n${err.stdout.slice(-2000)}`);
     }
   }, 30000); // Set 30 second timeout.
 })
