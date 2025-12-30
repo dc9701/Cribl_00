@@ -21,7 +21,7 @@ jobs:
         with:
           node-version: '25.x'
       - name: Set up Docker Compose
-        uses: docker/setup-compose-action@v1
+        uses: docker/setup-compose-action@v2
       # Start containers and run tests.
       - name: Build and start containers (target_1, target_2 & splitter)
         run: docker compose up --build -d
