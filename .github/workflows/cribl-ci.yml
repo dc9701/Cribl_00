@@ -23,6 +23,8 @@ jobs:
         with:
           node-version: '25.x'
       - run: npm ci
+      - name: Add Jest-Allure support
+        run: npm install -g allure-commandline allure-jest jest-environment-node
 
       # Start containers (target_1, target_2 & splitter) and run unit + integration tests.
       - name: Build/start containers and run all tests
@@ -31,9 +33,7 @@ jobs:
 
       - name: Generate Allure Report HTML
         # The allure command line is needed to generate the report
-        run: |
-          npm install -g allure-commandline
-          allure generate allure-results --clean -o allure-report
+        run: allure generate allure-results --clean -o allure-report
         continue-on-error: true
 
       - name: Upload Allure Report artifact
