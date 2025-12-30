@@ -17,16 +17,12 @@ describe('Verify Output File Content', () => {
 
   it('Output file (events.log) should match original input file (large_1M_events.log)', async () => {
     try {
-      // Wait for 'node app.js agent' to complete.
+      // Wait for 'node app.js agent' to complete, then use diff to verify files (~30MB) are equal.
       await execPromise('node app.js agent');
+      const { stdout, stderr } = await execPromise(`diff -u ${inputPath} ${outputPath}`, { maxBuffer: 50 * 1024 * 1024 },)
 
-      // Use diffstat to verify files are equal, or summarize their diffs, if not equal.
-      const { stdout, stderr } = await execPromise(`diff -u ${inputPath} ${outputPath} | diffstat`);
-      expect(stdout).toContain('0 files changed');
-      expect(stderr).toBe('');
-
-    } catch (error) {
-      throw new Error(`Error running appOutputFile.test: ${error.stderr || error.message}`);
+    } catch (err) {
+      throw new Error(`Error running appOutputFile.test: ${err.stderr || err.message}:\n. . .\n${err.stdout.slice(-10000)}`);
     }
   }, 30000); // Set 30 second timeout.
 })
