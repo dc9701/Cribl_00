@@ -33,7 +33,7 @@ services:
     volumes:
       - app:/app
 
-  test-agent:
+  test:
     build: .
     # Run unit tests using built-in node test runner, and integration tests using Jest.
     # NOTE: Integration tests will NOT be run if the unit tests fail (due to using '&&').
@@ -57,4 +57,4 @@ networks:
     driver: bridge  # Allow all nodes to connect.
 
 volumes:
-  app:
+  app:  # Enable sharing of output file (events.log).
