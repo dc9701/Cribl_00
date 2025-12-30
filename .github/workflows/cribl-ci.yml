@@ -24,7 +24,7 @@ jobs:
         uses: docker/setup-compose-action@v1
       # Start containers and run tests.
       - name: Build and start containers (target_1, target_2 & splitter)
-        run: docker-compose up --build -d
+        run: docker compose up --build -d
       - name: Wait for containers to be ready
         uses: jakejarvis/wait-action@master
         with:
@@ -34,7 +34,7 @@ jobs:
         # Replace 'npm test' with your actual test command which produces Allure results (e.g., mocha, jest with allure reporter)
         # run: docker exec your-test-service npm test
         # Ensure your test command generates results in the 'allure-results' directory
-        run: docker-compose run test
+        run: docker compose run test
 
       - name: Generate Allure Report HTML
         # The allure command line is needed to generate the report
