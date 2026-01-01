@@ -28,8 +28,8 @@ function agent(agent_dir) {
         console.log(error);
     });
 }
-// DCC async function writeToSocket(data, remoteSocket, localSocket) {
-function writeToSocket(data, remoteSocket, localSocket) {
+async function writeToSocket(data, remoteSocket, localSocket) {
+// DCC function writeToSocket(data, remoteSocket, localSocket) {
     var flushed = remoteSocket.write(data);
     if (!flushed) {
         // We could not write to one of the targets
@@ -79,7 +79,7 @@ function splitter(conf_directory) {
             else {
                 part_1 = data.slice(0, idx + 1); /* include the line termination */
                 part_2 = data.slice(idx + 1);
-                //* DCC
+                /* DCC
                 writeToSocket(part_1, outSocks[sockIdx], localSocket);
                 console.log(`[DCC_DEBUG_01] (${dccCnt}) SOCKIDX: ${sockIdx}, PART_1.length: ${part_1.length}`);
                 sockIdx++;
@@ -87,17 +87,15 @@ function splitter(conf_directory) {
                 writeToSocket(part_2, outSocks[sockIdx], localSocket);
                 console.log(`  [DCC_DEBUG_02] (${dccCnt++}) SOCKIDX: ${sockIdx}, PART_2.length: ${part_2.length}`);
                 // DCC */
-                /* DCC
+                //* DCC
                 writeToSocket(part_1, outSocks[sockIdx], localSocket)
                 .then(() => {
-                    console.log(`[DCC_DEBUG_01a] IDX: ${idx}, SOCKIDX: ${sockIdx}`);
-                    console.log(`  [DCC_DEBUG_01b] PART_1.length: ${part_1.length}`);
+                    console.log(`[DCC_DEBUG_01] (${dccCnt}) SOCKIDX: ${sockIdx}, PART_1.length: ${part_1.length}`);
                     sockIdx++;
                     sockIdx %= outSocks.length;
                     writeToSocket(part_2, outSocks[sockIdx], localSocket)
                     .then(() => {
-                        console.log(`[DCC_DEBUG_02a] IDX: ${idx}, SOCKIDX: ${sockIdx}`);
-                        console.log(`  [DCC_DEBUG_02b] PART_2.length: ${part_2.length}`);
+                        console.log(`  [DCC_DEBUG_02] (${dccCnt++}) SOCKIDX: ${sockIdx}, PART_2.length: ${part_2.length}`);
                     });
                 });
                 // DCC */
@@ -109,9 +107,6 @@ function splitter(conf_directory) {
     });
 }
 function target(conf_directory) {
-    // DCC vvv ===================================================================================================
-    const hostname = os.hostname();
-    // DCC ^^^ ===================================================================================================
     console.log("working as target");
     var data = fs.readFileSync(conf_directory + "/outputs.json");
     var json = JSON.parse(data);
@@ -124,10 +119,11 @@ function target(conf_directory) {
     var server = net.createServer(function (localSocket) {
         console.log("client connected");
         localSocket.on('data', function (data) {
-            fs.appendFile(outputfile, data, function () {
+            // DCC fs.appendFile(outputfile, data, function () {
+            await fs.promises.appendFile(outputfile, data, function () {
                 // written to file
                 // console.debug("Written to file");
-                console.log(`    [DCC_DEBUG_${hostname}] (${dccCnt++}) WROTE data.length: ${data.length}`);
+                console.log(`    [DCC_DEBUG] (${dccCnt++}) WROTE data.length: ${data.length}`);
             });
         });
     });
