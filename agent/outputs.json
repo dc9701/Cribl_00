@@ -1,6 +1,6 @@
 {
     "tcp" : {
-        "host" : "localhost",
+        "host" : "splitter",
         "port" : 9997
     }
 }

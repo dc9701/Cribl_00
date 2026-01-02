@@ -6,43 +6,19 @@ services:
     ports:
       - "9997"
     depends_on:
-      - monitor_1
-      - monitor_2
+      - target_1
+      - target_2
     networks:
       - cribl-network
 
-  monitor_1:
+  target_1:
     build: .
     command: ["node", "monitor.js", "1"]
     hostname: target_1
     ports:
       - "9997"
     depends_on:
-      - target_1
-    networks:
-      - cribl-network
-    volumes:
-      - app:/app
-
-  monitor_2:
-    build: .
-    command: ["node", "monitor.js", "2"]
-    hostname: target_2
-    ports:
-      - "9997"
-    depends_on:
-      - target_2
-    networks:
-      - cribl-network
-    volumes:
-      - app:/app
-
-  target_1:
-    build: .
-    command: ["node", "app.js", "target"]
-    hostname: tgt_1
-    ports:
-      - "9987"
+      - tgt_1
     networks:
       - cribl-network
     volumes:
@@ -50,10 +26,34 @@ services:
 
   target_2:
     build: .
+    command: ["node", "monitor.js", "2"]
+    hostname: target_2
+    ports:
+      - "9997"
+    depends_on:
+      - tgt_2
+    networks:
+      - cribl-network
+    volumes:
+      - app:/app
+
+  tgt_1:
+    build: .
+    command: ["node", "app.js", "target"]
+    hostname: tgt_1
+    ports:
+      - "9997"
+    networks:
+      - cribl-network
+    volumes:
+      - app:/app
+
+  tgt_2:
+    build: .
     command: ["node", "app.js", "target"]
     hostname: tgt_2
     ports:
-      - "9987"
+      - "9997"
     networks:
       - cribl-network
     volumes:
@@ -64,7 +64,7 @@ services:
     # Run unit tests using built-in node test runner, and integration tests using Jest.
     # NOTE: Integration tests will NOT be run if the unit tests fail (due to using '&&').
     command: >
-      sh -c "node --test-reporter=spec --test-reporter=junit --test-reporter-destination=stdout --test-reporter-destination=allure-results/report.xml --test test/unit/* ||
+      sh -c "node --test-reporter=spec --test-reporter=junit --test-reporter-destination=stdout --test-reporter-destination=allure-results/report.xml --test test/unit/* &&
       npm test -- --testPathPatterns=integration"
     ports:
       - "9997"

@@ -19,7 +19,7 @@ function monitor(monNum) {
     console.log("outputfile", outputfile);
     var data = fs.readFileSync("monitor/inputs.json");
     var json = JSON.parse(data);
-    var port = json.tcp[monNum - 1];
+    var port = json.tcp;
     var dccCnt = 1;
     // Create new log file.
     if (fs.existsSync(outputfile)) {
@@ -48,7 +48,7 @@ function monitor(monNum) {
             writeToSocket(data, outSocks[0], localSocket);
             var log = `"target_${monNum}",${dccCnt++},${data.length}`
             fs.appendFile(outputfile, `${log}\n`, function () {
-                console.log(`[MONITOR] ${log}`);
+                // DCC console.log(`[MONITOR] ${log}`);
             });
         });
     });

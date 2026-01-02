@@ -10,11 +10,11 @@
     "tcp" : [
         {
             "host" : "tgt_1",
-            "port" : 9987
+            "port" : 9997
         },
         {
             "host" : "tgt_2",
-            "port" : 9987
+            "port" : 9997
         }
     ]
 }

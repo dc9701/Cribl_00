@@ -80,11 +80,11 @@ function splitter(conf_directory) {
                 part_2 = data.slice(idx + 1);
                 //* DCC
                 writeToSocket(part_1, outSocks[sockIdx], localSocket);
-                console.log(`[DCC_DEBUG_01] (${dccCnt}) SOCKIDX: ${sockIdx}, PART_1.length: ${part_1.length}`);
+                // DCC console.log(`[DCC_DEBUG_01] (${dccCnt}) SOCKIDX: ${sockIdx}, PART_1.length: ${part_1.length}`);
                 sockIdx++;
                 sockIdx %= outSocks.length;
                 writeToSocket(part_2, outSocks[sockIdx], localSocket);
-                console.log(`  [DCC_DEBUG_02] (${dccCnt++}) SOCKIDX: ${sockIdx}, PART_2.length: ${part_2.length}`);
+                // DCC console.log(`  [DCC_DEBUG_02] (${dccCnt++}) SOCKIDX: ${sockIdx}, PART_2.length: ${part_2.length}`);
                 // DCC */
                 /* DCC
                 writeToSocket(part_1, outSocks[sockIdx], localSocket)
@@ -121,7 +121,7 @@ function target(conf_directory) {
             fs.appendFile(outputfile, data, function () {
                 // written to file
                 // console.debug("Written to file");
-                console.log(`    [DCC_DEBUG] (${dccCnt++}) WROTE data.length: ${data.length}`);
+                // DCC console.log(`    [DCC_DEBUG] (${dccCnt++}) WROTE data.length: ${data.length}`);
             });
         });
     });
