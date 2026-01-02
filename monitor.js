@@ -9,6 +9,10 @@ function writeToSocket(data, remoteSocket, localSocket) {
         localSocket.pause();
     }
 }
+/**
+ * Intercept stream from splitter node to target node(s) and write chunk size to log file.
+ * @param {*} monNum Monitor/target node # (1|2).
+ */
 function monitor(monNum) {
     console.log("working as monitor");
     var data = fs.readFileSync("monitor/outputs.json");
@@ -20,7 +24,7 @@ function monitor(monNum) {
     var data = fs.readFileSync("monitor/inputs.json");
     var json = JSON.parse(data);
     var port = json.tcp;
-    var dccCnt = 1;
+    var chunks = 1;
     // Create new log file.
     if (fs.existsSync(outputfile)) {
         fs.unlinkSync(outputfile);
@@ -46,9 +50,9 @@ function monitor(monNum) {
         localSocket.on('data', function (data) {
             // Pass-thru data and log chunk size.
             writeToSocket(data, outSocks[0], localSocket);
-            var log = `"target_${monNum}",${dccCnt++},${data.length}`
+            var log = `"target_${monNum}",${chunks++},${data.length}`
             fs.appendFile(outputfile, `${log}\n`, function () {
-                // DCC console.log(`[MONITOR] ${log}`);
+                console.log(`[MONITOR] ${log}`);
             });
         });
     });

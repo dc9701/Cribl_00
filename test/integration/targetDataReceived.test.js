@@ -5,7 +5,9 @@ const { exec } = require('child_process');
 const { promisify } = require('util');
 const execPromise = promisify(exec);
 const { describe, expect, it } = require('@jest/globals');
-
+/**
+ * Integration Test Suite to verify "data received on the ‘Target’ nodes are correct".
+ */
 describe('Verify output file content and data received on target nodes', () => {
   var data = fs.readFileSync("agent/inputs.json");
   var json = JSON.parse(data);
@@ -27,6 +29,12 @@ describe('Verify output file content and data received on target nodes', () => {
     });
   });
 
+  /**
+   * Verify the resultant events.log file written by the two target nodes matches the original event 
+   * stream simulated by agent/inputs/large_1M_events.log.
+   * 
+   * NOTE: Uses shell command 'diff -u' to provides a summary of how the files differ.
+   */
   it('Output file (events.log) should match original input file (large_1M_events.log)', async () => {
     try {
       // Wait for 'node app.js agent' to complete, then use diff to verify files (~30MB) are equal.
@@ -38,6 +46,12 @@ describe('Verify output file content and data received on target nodes', () => {
     }
   }, 30000); // Set 30 second timeout.
 
+  /**
+   * Verify three aspects of how the input stream is split across the two targets:
+   *    1. Data was split equally between target nodes (each received the same # of 'chunks').
+   *    2. Each chunk has a part_1 and a part_2 that together total 64K.
+   *    3. The "small part_1", "large part_2" pattern alternates consistently between the two targets. 
+   */
   it('Verify data received on target nodes has been split correctly', async () => {
     try {
       // Wait for 'node app.js agent' to complete, then verify target data received.
@@ -61,6 +75,17 @@ describe('Verify output file content and data received on target nodes', () => {
   });
 });
 
+/**
+ * Function to verify how the input stream is split.
+ * @param {string} logPath1 Path to monitor_1's log file (target_1.log).
+ * @param {string} logPath2 Path to monitor_2's log file (target_2.log).
+ * @returns 
+ *    sameNumberChunks {boolean} Both targets received an equal # chunks written.
+ *    allChunksTotal64K {boolean} The part_1 & part_2 of each chunk total 64K.
+ *    goodChunksList {object[]} List of chunks matching small/large alternating pattern.  Should be all
+ *                              chunks, but there may be many "good chunks" even if sameNumberChunks or
+ *                              allChunksTotal64K is false.
+ */
 async function verifyTargetDataReceived(logPath1, logPath2) {
   var sameNumberChunks = false;
   var allChunksTotal64K = true;

@@ -1,4 +1,5 @@
 services:
+  # Splitter node that divides the stream data between target nodes.
   splitter:
     build: .
     command: ["node", "app.js", "splitter"]
@@ -11,6 +12,7 @@ services:
     networks:
       - cribl-network
 
+# Monitors/logs stream data meant for target_1 (tgt_1) from splitter.
   target_1:
     build: .
     command: ["node", "monitor.js", "1"]
@@ -24,6 +26,7 @@ services:
     volumes:
       - app:/app
 
+# Monitors/logs stream data meant for target_2 (tgt_2) from splitter.
   target_2:
     build: .
     command: ["node", "monitor.js", "2"]
@@ -37,6 +40,7 @@ services:
     volumes:
       - app:/app
 
+# Actual target_1 reciever node; appends its portions of the stream to output file (events.log).
   tgt_1:
     build: .
     command: ["node", "app.js", "target"]
@@ -48,6 +52,7 @@ services:
     volumes:
       - app:/app
 
+# Actual target_2 reciever node; also appends its portions to output file (events.log).
   tgt_2:
     build: .
     command: ["node", "app.js", "target"]
@@ -59,10 +64,10 @@ services:
     volumes:
       - app:/app
 
+  # Run unit tests using built-in node test runner, and integration tests using Jest.
+  # NOTE: Integration tests will NOT be run if the unit tests fail (due to using '&&').
   test:
     build: .
-    # Run unit tests using built-in node test runner, and integration tests using Jest.
-    # NOTE: Integration tests will NOT be run if the unit tests fail (due to using '&&').
     command: >
       sh -c "node --test-reporter=spec --test-reporter=junit --test-reporter-destination=stdout --test-reporter-destination=allure-results/report.xml --test test/unit/* &&
       npm test -- --testPathPatterns=integration"

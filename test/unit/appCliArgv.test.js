@@ -4,7 +4,10 @@ const test = require('node:test');
 const fs = require('fs');
 const path = require('path');
 const { spawn } = require('child_process');
-
+/**
+ * Test valid ARGVs (node app.js agent).
+ * NOTE: To pass, splitter and target node(s) must be up.
+ */
 test('Agent should run successfully if VALID ARGV ("agent") is passed', (t, done) => {
   const child = spawn('node', ['app.js', 'agent']);
   let output = '';
@@ -17,7 +20,9 @@ test('Agent should run successfully if VALID ARGV ("agent") is passed', (t, done
     done();
   });
 });
-
+/**
+ * Test invalid ARGs (no args provided).
+ */
 test('Agent should exit w/ status = 1 and display USAGE message if NO ARGV is passed', (t, done) => {
   const child = spawn('node', ['app.js']);
   let output = '';
@@ -30,7 +35,9 @@ test('Agent should exit w/ status = 1 and display USAGE message if NO ARGV is pa
     done();
   });
 });
-
+/**
+ * Test invalid ARGs - Too many args (> 1).
+ */
 test('Agent should exit w/ status = 1 and display USAGE message if MORE THAN ONE ARGV is passed', (t, done) => {
   const child = spawn('node', ['app.js', 'agent', 'agent']);
   let output = '';
@@ -43,7 +50,9 @@ test('Agent should exit w/ status = 1 and display USAGE message if MORE THAN ONE
     done();
   });
 });
-
+/**
+ * Test invalid ARGs - Bad arg specified (bad_argv vs. agent|splitter|target).
+ */
 test('Agent should exit w/ status = 1 and display ERROR message if INVALID ARGV is passed', (t, done) => {
   const child = spawn('node', ['app.js', 'bad_argv']);
   let output = '';
@@ -56,9 +65,10 @@ test('Agent should exit w/ status = 1 and display ERROR message if INVALID ARGV 
     done();
   });
 });
-
+/**
+ * Delete the large output file spec'd in outputs.json (or 'events.log', by default), if it exists.
+ */
 test.after(() => {
-  // Delete the large output file spec'd in outputs.json (or 'events.log', by default), if it exists.
   var data = fs.readFileSync('target/outputs.json');
   var json = JSON.parse(data);
   var filename = json.file || 'events.log';
