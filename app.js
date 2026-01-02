@@ -45,7 +45,6 @@ function splitter(conf_directory) {
     var data = fs.readFileSync(conf_directory + "/inputs.json");
     var json = JSON.parse(data);
     var port = json.tcp;
-    var dccCnt = 1;
     var server = net.createServer(function (localSocket) {
         console.log("client connected");
         var outSocks = [];
@@ -73,31 +72,14 @@ function splitter(conf_directory) {
             if (idx == -1) {
                 part_1 = data;
                 writeToSocket(part_1, outSocks[sockIdx], localSocket);
-                console.log("[DCC_DEBUG_00] IDX:", idx);
             }
             else {
                 part_1 = data.slice(0, idx + 1); /* include the line termination */
                 part_2 = data.slice(idx + 1);
-                //* DCC
                 writeToSocket(part_1, outSocks[sockIdx], localSocket);
-                // DCC console.log(`[DCC_DEBUG_01] (${dccCnt}) SOCKIDX: ${sockIdx}, PART_1.length: ${part_1.length}`);
                 sockIdx++;
                 sockIdx %= outSocks.length;
                 writeToSocket(part_2, outSocks[sockIdx], localSocket);
-                // DCC console.log(`  [DCC_DEBUG_02] (${dccCnt++}) SOCKIDX: ${sockIdx}, PART_2.length: ${part_2.length}`);
-                // DCC */
-                /* DCC
-                writeToSocket(part_1, outSocks[sockIdx], localSocket)
-                .then(() => {
-                    console.log(`[DCC_DEBUG_01] (${dccCnt}) SOCKIDX: ${sockIdx}, PART_1.length: ${part_1.length}`);
-                    sockIdx++;
-                    sockIdx %= outSocks.length;
-                    writeToSocket(part_2, outSocks[sockIdx], localSocket)
-                    .then(() => {
-                        console.log(`  [DCC_DEBUG_02] (${dccCnt++}) SOCKIDX: ${sockIdx}, PART_2.length: ${part_2.length}`);
-                    });
-                });
-                // DCC */
             }
         });
     });
@@ -114,14 +96,12 @@ function target(conf_directory) {
     var data = fs.readFileSync(conf_directory + "/inputs.json");
     var json = JSON.parse(data);
     var port = json.tcp;
-    var dccCnt = 1;
     var server = net.createServer(function (localSocket) {
         console.log("client connected");
         localSocket.on('data', function (data) {
             fs.appendFile(outputfile, data, function () {
                 // written to file
                 // console.debug("Written to file");
-                // DCC console.log(`    [DCC_DEBUG] (${dccCnt++}) WROTE data.length: ${data.length}`);
             });
         });
     });
