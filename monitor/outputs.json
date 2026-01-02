@@ -9,12 +9,12 @@
     ],
     "tcp" : [
         {
-            "host" : "localhost",
-            "port" : 9988
+            "host" : "tgt_1",
+            "port" : 9987
         },
         {
-            "host" : "localhost",
-            "port" : 9989
+            "host" : "tgt_2",
+            "port" : 9987
         }
     ]
 }

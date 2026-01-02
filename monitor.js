@@ -11,7 +11,6 @@ function writeToSocket(data, remoteSocket, localSocket) {
 }
 function monitor(monNum) {
     console.log("working as monitor");
-    const conf_directory = 'monitor'
     var data = fs.readFileSync("monitor/outputs.json");
     var json = JSON.parse(data);
     var targets = json.tcp;
@@ -22,10 +21,18 @@ function monitor(monNum) {
     var json = JSON.parse(data);
     var port = json.tcp[monNum - 1];
     var dccCnt = 1;
+    // Create new log file.
+    if (fs.existsSync(outputfile)) {
+        fs.unlinkSync(outputfile);
+    }
+    fs.appendFileSync(outputfile, `"target","chunk","bytes"\n`, function () {
+        console.log("outputfile:", outputfile);
+    });
     var server = net.createServer(function (localSocket) {
         console.log("client connected");
         var outSocks = [];
         console.log('processing ', targets[monNum - 1]);
+
         var sock = net.createConnection(targets[monNum - 1], function () {
             console.log("Connected to ", targets[monNum - 1]);
         });

@@ -23,5 +23,8 @@
   "homepage": "https://github.com/dc9701/Cribl_00#readme",
   "devDependencies": {
     "jest": "^30.2.0"
+  },
+  "dependencies": {
+    "csv-parse": "^6.1.0"
   }
 }

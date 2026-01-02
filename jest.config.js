@@ -1,6 +1,3 @@
 const config = {
-  testEnvironment: "allure-jest/node",
-  testEnvironmentOptions: {
-    resultsDir: "./allure-results"
-  }  
+  testEnvironment: "allure-jest/node"
 };
