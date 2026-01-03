@@ -69,7 +69,8 @@ services:
   test:
     build: .
     command: >
-      sh -c "node --test-reporter=spec --test-reporter=junit --test-reporter-destination=stdout --test-reporter-destination=allure-results/report.xml --test test/unit/* &&
+      sh -c "mkdir -p ./allure-results &&
+      node --test-reporter=spec --test-reporter=junit --test-reporter-destination=stdout --test-reporter-destination=allure-results/report.xml --test test/unit/* &&
       npm test -- --testPathPatterns=integration"
     ports:
       - "9997"
