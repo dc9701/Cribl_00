@@ -52,7 +52,7 @@ function monitor(monNum) {
             writeToSocket(data, outSocks[0], localSocket);
             var log = `"target_${monNum}",${chunks++},${data.length}`
             fs.appendFile(outputfile, `${log}\n`, function () {
-                console.log(`[MONITOR] ${log}`);
+                // console.log(`[MONITOR] ${log}`);
             });
         });
     });

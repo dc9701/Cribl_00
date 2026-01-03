@@ -85,7 +85,7 @@ In fact, I found I didn't need to modify **inputs.json**, either.
 
 Running the test suite locally (or via GitHub Actions) is done via `docker-compose`, which will automatically build, setup, run tests, and teardown the containers with this command:
 
-- `docker compose up --build --abort-on-container-exit`
+- `docker compose up --build --exit-code-from test`
 
 Similarly, tests may be re-run on demand with:  `docker compose run test`
 
@@ -192,7 +192,7 @@ jobs:
 
       # Start containers (target_1, target_2 & splitter) and run unit + integration tests.
       - name: Build/start containers and run all tests
-        run: docker compose up --build --abort-on-container-exit
+        run: docker compose up --build --exit-code-from test
       - name: Upload log files as artifacts
         uses: actions/upload-artifact@v4
       - name: Generate Allure Report HTML

@@ -28,7 +28,7 @@ jobs:
 
       # Start containers (target_1, target_2 & splitter) and run unit + integration tests.
       - name: Build/start containers and run all tests
-        run: docker compose up --build --abort-on-container-exit
+        run: docker compose up --build --exit-code-from test
         continue-on-error: true
 
       - name: Upload log files as artifact

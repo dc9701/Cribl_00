@@ -24,7 +24,7 @@ services:
     networks:
       - cribl-network
     volumes:
-      - app:/app
+      - .:/app
 
 # Monitors/logs stream data meant for target_2 (tgt_2) from splitter.
   target_2:
@@ -38,7 +38,7 @@ services:
     networks:
       - cribl-network
     volumes:
-      - app:/app
+      - .:/app
 
 # Actual target_1 reciever node; appends its portions of the stream to output file (events.log).
   tgt_1:
@@ -50,7 +50,7 @@ services:
     networks:
       - cribl-network
     volumes:
-      - app:/app
+      - .:/app
 
 # Actual target_2 reciever node; also appends its portions to output file (events.log).
   tgt_2:
@@ -62,7 +62,7 @@ services:
     networks:
       - cribl-network
     volumes:
-      - app:/app
+      - .:/app
 
   # Run unit tests using built-in node test runner, and integration tests using Jest.
   # NOTE: Integration tests will NOT be run if the unit tests fail (due to using '&&').
@@ -81,7 +81,7 @@ services:
     networks:
       - cribl-network
     volumes:
-      - app:/app
+      - .:/app
 
 networks:
   cribl-network:
