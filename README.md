@@ -291,7 +291,6 @@ Perhaps the **target()** nodes should write to a common sequential task **queue*
 
 ---
 <br>
-<br>
 
 With **[CRIBL.CLOUD GOVERNMENT](https://marketplace.fedramp.gov/products/FR2519759620)** having recently obtained FedRAMP Rev5 Authorization, it seems 20X is on the horizon!
 <br>
