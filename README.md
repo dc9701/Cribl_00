@@ -292,11 +292,12 @@ Perhaps the **target()** nodes should write to a common sequential task **queue*
 ---
 <br>
 <br>
+
 With **[CRIBL.CLOUD GOVERNMENT](https://marketplace.fedramp.gov/products/FR2519759620)** having recently obtained FedRAMP Rev5 Authorization, it seems 20X is on the horizon!
 <br>
 <br>
-<br>
-A celebration is in order - and also a review of the FedRAMP 20X Key Security Indicators as to how our automated tests fit in....
+
+A celebration is in order - and also a review of the **[FedRAMP 20X Key Security Indicators](https://www.fedramp.gov/docs/20x/key-security-indicators)** as to how our automated tests fit in....
 <br>
 <br>
 <br>
@@ -305,25 +306,24 @@ A celebration is in order - and also a review of the FedRAMP 20X Key Security In
 
 #### Automated tests as part of a regular CI/CD build-deploy-test cycle aligns well with:
 
-KSI-AFR-09 Persistent Validation and Assessment
-
-*Persistently validate, assess, and report on the effectiveness and status of security decisions and policies that are implemented within the cloud service offering in alignment with the FedRAMP 20x Persistent Validation and Assessment (PVA) process, and persistently address all related requirements and recommendations.*
+> **[KSI-AFR-09 Persistent Validation and Assessment](https://www.fedramp.gov/docs/20x/key-security-indicators/#ksi-afr-09-persistent-validation-and-assessment)**
+>- *Persistently validate, assess, and report on the effectiveness and status of security decisions and policies that are implemented within the cloud service offering in alignment with the FedRAMP 20x Persistent Validation and Assessment (PVA) process, and persistently address all related requirements and recommendations.*
 
 #### Likewise, our CI/CD tests satisfy the following two KSIs:  Automated Testing and Validation, and Infrastructure as Code (one merely need reference `.github/workflows/cribl-ci.yml`):
 
-KSI-CMT-03 Automated Testing and Validation
+> **[KSI-CMT-03 Automated Testing and Validation](https://www.fedramp.gov/docs/20x/key-security-indicators/#ksi-cmt-03-automated-testing-and-validation)**
+>- *Automate persistent testing and validation of changes throughout deployment.*
 
-*Automate persistent testing and validation of changes throughout deployment.*
-
-KSI-MLA-05 Infrastructure as Code
-
-*Perform Infrastructure as Code and configuration evaluation and testing.*
+> **[KSI-MLA-05 Infrastructure as Code](https://www.fedramp.gov/docs/20x/key-security-indicators/#ksi-mla-05-infrastructure-as-code)**
+>- *Perform Infrastructure as Code and configuration evaluation and testing.*
 
 #### And here's one that would influence our test design, in terms of identifying event types to verify:
 
-KSI-MLA-07 Event Types
+> **[KSI-MLA-07 Event Types](https://www.fedramp.gov/docs/20x/key-security-indicators/#ksi-mla-07-event-types)**
+>- *Maintain a list of information resources and event types that will be monitored, logged, and audited, then do so.*
 
-*Maintain a list of information resources and event types that will be monitored, logged, and audited, then do so.*
+<br>
+<br>
 
 Certainly a lot to look forward to as a **Sr Software Developer in Test (FedRamp)**.
 
