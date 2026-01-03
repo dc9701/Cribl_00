@@ -243,7 +243,7 @@ test-1      |   console.log
 test-1      |     Verify target_1 & target_2 both have the same number of chunks written...
 ```
 
-Upon job completion, you will have links to download the published **Artifacts**, which include the **events.log**, **target_1.log** and **target_2.log** files (**logs** link) as well as the HTML pages for the **Allure Report** (**github-pages** link):
+For each run (manual or triggered), you will have links to download the published **Artifacts**, which include the **events.log**, **target_1.log** and **target_2.log** files (**logs** link) as well as the HTML pages for the **Allure Report** (**github-pages** link):
 
 <img src="images/Artifacts_Links.png" alt="Artifact Links" width="800" />
 
@@ -289,4 +289,42 @@ Perhaps the **target()** nodes should write to a common sequential task **queue*
 ### 5. FedRAMP
 <img src="images/FedRAMP_TOGA_GOAT.png" alt="TOGA GOAT" align="left" width="250" style="margin-right: 20px;"/>
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+---
+<br>
+<br>
+With **[CRIBL.CLOUD GOVERNMENT](https://marketplace.fedramp.gov/products/FR2519759620)** having recently obtained FedRAMP Rev5 Authorization, it seems 20X is on the horizon!
+<br>
+<br>
+<br>
+A celebration is in order - and also a review of the FedRAMP 20X Key Security Indicators as to how our automated tests fit in....
+<br>
+<br>
+<br>
+
+---
+
+#### Automated tests as part of a regular CI/CD build-deploy-test cycle aligns well with:
+
+KSI-AFR-09 Persistent Validation and Assessment
+
+*Persistently validate, assess, and report on the effectiveness and status of security decisions and policies that are implemented within the cloud service offering in alignment with the FedRAMP 20x Persistent Validation and Assessment (PVA) process, and persistently address all related requirements and recommendations.*
+
+#### Likewise, our CI/CD tests satisfy the following two KSIs:  Automated Testing and Validation, and Infrastructure as Code (one merely need reference `.github/workflows/cribl-ci.yml`):
+
+KSI-CMT-03 Automated Testing and Validation
+
+*Automate persistent testing and validation of changes throughout deployment.*
+
+KSI-MLA-05 Infrastructure as Code
+
+*Perform Infrastructure as Code and configuration evaluation and testing.*
+
+#### And here's one that would influence our test design, in terms of identifying event types to verify:
+
+KSI-MLA-07 Event Types
+
+*Maintain a list of information resources and event types that will be monitored, logged, and audited, then do so.*
+
+Certainly a lot to look forward to as a **Sr Software Developer in Test (FedRamp)**.
+
+Thanks for your consideration!
