@@ -35,7 +35,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: logs
-          path: ./app/*.log
+          path: app/*.log
                   
       - name: Generate Allure Report HTML
         # The allure command line is needed to generate the report
