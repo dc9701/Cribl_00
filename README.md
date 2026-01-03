@@ -75,6 +75,10 @@ As for test case documentation, I summarized their purpose/goals in **2. Test De
   *    3. The "small part_1", "large part_2" pattern alternates between the two targets. 
   */
 ```
+#### Node.js application and configuration files should not be modified in any way...
+
+In fact, I found I didn't need to modify **inputs.json**, either.
+
 #### Automated setup and teardown
 
 Running the test suite locally (or via GitHub Actions) is done via `docker-compose`, which will automatically build, setup, run tests, and teardown the containers with this command:
@@ -91,9 +95,10 @@ Here's a local Docker test run showing the four unit tests passing, but the two 
 
 <img src="images/Local_Docker_Test_Run.png" alt="Local Docker Test Run" width="800" />
 
+---
 If you want to run the tests totally outside of Docker, you will need to:
 
-1. Install requisite Node.js modules on you localhost, including:
+1. Install requisite Node.js modules on your `localhost`, including:
     - `npm init -y`
     - `npm install -g jest`
     - `npm install csv-parse`
@@ -148,10 +153,9 @@ Terminal #3: node app.js target_1
 Terminal #2: node app.js splitter
 Terminal #1: node app.js agent
 ```
+---
 
-#### Node.js application and configuration files should not be modified in any way...
-
-In fact, I found I didn't need to modify **inputs.json**, either.
+*Now let's get back to how I've implemented the rest of the* **Acceptance Criteria**...
 
 #### Integrate the Github repository with one of the publicly available CI/CD services
 
