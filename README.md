@@ -97,6 +97,55 @@ In fact, I found I didn't need to modify **inputs.json**, either.
 
 #### Integrate the Github repository with one of the publicly available CI/CD services
 
+I integrated with my repo's **GitHub Actions** using `.github/workflows/cribl-ci.yml`.  In summary:
+
+```
+name: Cribl CI/CD
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Setup dependencies.
+      - name: Checkout repository
+        uses: actions/checkout@v5
+      - name: Set up Docker Compose
+        uses: docker/setup-compose-action@v1
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+      - run: npm ci
+      - name: Add Jest-Allure support
+        run: npm install -g allure-commandline allure-jest jest-environment-node
+
+      # Start containers (target_1, target_2 & splitter) and run unit + integration tests.
+      - name: Build/start containers and run all tests
+        run: docker compose up --build --abort-on-container-exit
+      - name: Upload log files as artifacts
+        uses: actions/upload-artifact@v4
+      - name: Generate Allure Report HTML
+        run: allure generate allure-results --clean -o allure-report
+      - name: Upload Allure Report artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: allure-report
+          name: github-pages
+          
+  deploy-report:
+    needs: build-test
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }} # Link to the published report
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4 # Deploys the 'github-pages' artifact
+```
+
 With GitHub Actions, we integrate into the CI/CD process such that all tests are automatically run each time a commit is pushed.  One can also run the tests manually with the **Run Workflow** button.
 
 <img src="images/GHA_0_Run_Workflow.png" alt="GitHub Actions Integration" width="800" />
