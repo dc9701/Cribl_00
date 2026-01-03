@@ -223,13 +223,35 @@ Here we can see the `docker compose up --build` process starting:
 
 <img src="images/GHA_1_Build-and-Test_START.png" alt="GHA Build/Test (start)" width="800" />
 
-And upon completion:
+And upon completion, all resources are shut down:
 
 <img src="images/GHA_2_Build-and-Test_END.png" alt="GHA Build/Test (end)" width="800" />
 
 #### Capture all output and artifacts generated from each application/host
 
-*<< UNDER CONSTRUCTION >>*
+As shown in the previous screenshots, output from each application/host is captured in the workflow logs, such as:
+
+```
+tgt_2-1     | client connected
+target_1-1  | processing  { host: 'tgt_1', port: 9997 }
+splitter-1  | Connected to  { host: 'target_1', port: 9997 }
+splitter-1  | Connected to  { host: 'target_2', port: 9997 }
+target_2-1  | Connected to  { host: 'tgt_2', port: 9997 }
+tgt_1-1     | client connected
+target_1-1  | Connected to  { host: 'tgt_1', port: 9997 }
+test-1      |   console.log
+test-1      |     Verify target_1 & target_2 both have the same number of chunks written...
+```
+
+Upon job completion, you will have links to download the published **Artifacts**, which include the **events.log**, **target_1.log** and **target_2.log** files (**logs** link) as well as the HTML pages for the **Allure Report** (**github-pages** link):
+
+<img src="images/Artifacts_Links.png" alt="Artifact Links" width="800" />
+
+Clicking the link under **deploy-report** (https://dc9701.github.io/Cribl_00/) will open the **Allure Report** page:
+
+<img src="images/Allure_Report.png" alt="Allure Report" width="800" />
+
+> ***NOTE:**  This report is a work-in-progress; I'm still trying to understand why zero test results are showing up.*
 
 ### 4. Observations
 
