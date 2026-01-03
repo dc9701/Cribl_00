@@ -5,7 +5,7 @@
 
 This project exercises the Cribl "QA Engineering: Take Home Project" app, using the Node.js test runner for unit tests and Jest for integration tests.  Tests may be run locally via docker-compose or as part of a CI/CD pipeline using GitHub Actions.
 
-Details on test design and how to run the tests are in the sections below, as well as observations on the test failures.  Lastly, since my application is for the "Sr SW Developer in Test (FedRamp)" position, our Toga Goat™ will share some FedRAMP thoughts.  Enjoy!
+Details on test design and how to run the tests are in the sections below, as well as observations on the test failures.  Lastly, since my application is for the "Sr SW Developer in Test (FedRamp)" position, our Toga Goat will share some FedRAMP thoughts.  Enjoy!
 
 ### 2. Test Design
 
@@ -90,6 +90,64 @@ And final tear down after on-demand testing:  `docker compose down`
 Here's a local Docker test run showing the four unit tests passing, but the two integration tests failing:
 
 <img src="images/Local_Docker_Test_Run.png" alt="Local Docker Test Run" width="800" />
+
+If you want to run the tests totally outside of Docker, you will need to:
+
+1. Install requisite Node.js modules on you localhost, including:
+    - `npm init -y`
+    - `npm install -g jest`
+    - `npm install csv-parse`
+    - `npm install -g allure-jest allure-js-commons jest-environment-node`
+
+2. Node.js v25.x may give you a warning:  `(node:67) Warning: --localstorage-file was provided without a valid path`, so set the following in your environment:
+    - `export NODE_OPTIONS='--no-experimental-webstorage'`
+
+3. Make copies of the `target` folder (`target_1` & `target_2`) and modify the ports in `inputs.json` (and the ports and hosts in `splitter/outputs.json`) as well as in `agent/outputs.json`, such that all hosts are `localhost`, but using different ports.
+
+For example:
+
+```
+agent/outputs.json:
+{
+    "tcp" : {
+        "host" : "localhost",
+        "port" : 9997
+    }
+}
+
+splitter/outputs.json:
+{
+    "tcp" : [
+        {
+            "host" : "localhost",
+            "port" : 9998
+        },
+        {
+            "host" : "localhost",
+            "port" : 9999
+        }
+    ]
+}
+
+target_1/inputs.json:
+{
+    "tcp" : 9998
+}
+
+target_2/inputs.json:
+{
+    "tcp" : 9999
+}
+```
+
+You can then open multiple terminal windows and start each app in a separate instance:
+
+```
+Terminal #4: node app.js target_2
+Terminal #3: node app.js target_1
+Terminal #2: node app.js splitter
+Terminal #1: node app.js agent
+```
 
 #### Node.js application and configuration files should not be modified in any way...
 
