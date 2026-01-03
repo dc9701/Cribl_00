@@ -89,7 +89,7 @@ And final tear down after on-demand testing:  `docker compose down`
 
 Here's a local Docker test run showing the four unit tests passing, but the two integration tests failing:
 
-<img src="images/Local_Docker_Test_Run.png" alt="Application Monitors" width="800" />
+<img src="images/Local_Docker_Test_Run.png" alt="Local Docker Test Run" width="800" />
 
 #### Node.js application and configuration files should not be modified in any way...
 
@@ -97,7 +97,17 @@ In fact, I found I didn't need to modify **inputs.json**, either.
 
 #### Integrate the Github repository with one of the publicly available CI/CD services
 
-*<< UNDER CONSTRUCTION >>*
+With GitHub Actions, we integrate into the CI/CD process such that all tests are automatically run each time a commit is pushed.  One can also run the tests manually with the **Run Workflow** button.
+
+<img src="images/GHA_0_Run_Workflow.png" alt="GitHub Actions Integration" width="800" />
+
+Here we can see the `docker compose up --build` process starting:
+
+<img src="images/GHA_1_Build-and-Test_START.png" alt="GHA Build/Test (start)" width="800" />
+
+And upon completion:
+
+<img src="images/GHA_2_Build-and-Test_END.png" alt="GHA Build/Test (end)" width="800" />
 
 #### Capture all output and artifacts generated from each application/host
 
