@@ -215,7 +215,7 @@ jobs:
         uses: actions/deploy-pages@v4 # Deploys the 'github-pages' artifact
 ```
 
-With GitHub Actions, we integrate into the CI/CD process such that all tests are automatically run each time a commit is pushed.  One can also run the tests manually with the **Run Workflow** button.
+With GitHub Actions, we integrate into the CI/CD process such that all tests are automatically run each time a commit is pushed.  One can also run the tests manually with the **Run Workflow** button on this page:  https://github.com/dc9701/Cribl_00/actions
 
 <img src="images/GHA_0_Run_Workflow.png" alt="GitHub Actions Integration" width="800" />
 
