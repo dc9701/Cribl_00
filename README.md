@@ -33,7 +33,7 @@ Without modifying any of the original project code or configuration, I added two
 
 <img src="images/Application_Monitors.png" alt="Application Monitors" width="800" />
 
-The two Monitor containers have **hostnames** of `target_1` and `target_2`, so they intercept the output from Splitter and write it to their own log files (**target_1.log** & **target_2.log**) before passing the data chunks along to the actual Targets (named `tgt_1` and `tgt_2`), which then do their customary appends to **events.log**.
+In `docker-compose.yml`, the two Monitor containers have **hostnames** of `target_1` and `target_2`, so they intercept the output from Splitter and write it to their own log files (**target_1.log** & **target_2.log**) before passing the data chunks along to the actual Targets (named `tgt_1` and `tgt_2`), which then do their customary appends to **events.log**.
 
 Splitter splits each of the 64K chunks of the input file between target_1 and target_2 that they can be sequentially appended to the output file such it is identical to the input file (large_1M_events.log).  Each 64K chunk is split on the first newline char; there will be a less-than 64K (36,096 bytes) final chunk.
 
