@@ -11,7 +11,7 @@ Details on test design and how to run the tests are in the sections below, as we
 
 For the objective of "**validates if data received on the ‘Target’ nodes are correct**", I took a two-pronged approach:
 
-- **appOutputFile.test** - Verify the resultant events.log file written by the two target nodes matches the original event stream simulated by agent/inputs/large_1M_events.log.
+- **appOutputFile.test** - Verify the resultant events.log file written by the two target nodes matches the original event stream simulated by large_1M_events.log.
 - **targetDataReceived.test** - Monitors the data received by target_1 and target_2 nodes, then verifies:
 	1. Data was split equally between target nodes (each received the same # of 'chunks').
   2. Each chunk has a part_1 and a part_2 that together total 64K.
@@ -51,7 +51,7 @@ Finally, the resultant output file (events.log) should be identical to the input
 
 ### 3. Running Tests
 
-While developing the tests, I used Visual Studio Code v1.107.1 and Docker Desktop v4.55.0 on a MacBook Pro running Tahoe 26.1.  I used Homebrew 5.0.4 to install Node v25.2.1 and Jest v30.1.3.  My GitHub repo is here:
+When developing the tests, I used Visual Studio Code v1.107.1 and Docker Desktop v4.55.0 on a MacBook Pro running Tahoe 26.1.  I used Homebrew 5.0.4 to install Node v25.2.1 and Jest v30.1.3.  My GitHub repo is here:
 
 https://github.com/dc9701/Cribl_00/blob/main/README.md
 
@@ -65,7 +65,7 @@ test
 └── unit
     └── appCliArgv.test.js
 ```
-I summarized these in **2. Test Design**; in addition, each test case includes a **JSDoc** entry, like:
+As for test case documentation, I summarized their purpose/goals in **2. Test Design**, and each test case includes a **JSDoc** entry, like:
 
 ```
 /**
