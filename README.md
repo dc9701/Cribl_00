@@ -299,7 +299,6 @@ With **[CRIBL.CLOUD GOVERNMENT](https://marketplace.fedramp.gov/products/FR25197
 A celebration is in order - and also a review of the **[FedRAMP 20X Key Security Indicators](https://www.fedramp.gov/docs/20x/key-security-indicators)** as to how our automated tests fit in....
 <br>
 <br>
-<br>
 
 ---
 
