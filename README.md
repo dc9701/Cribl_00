@@ -155,6 +155,11 @@ Terminal #3: node app.js target_1
 Terminal #2: node app.js splitter
 Terminal #1: node app.js agent
 ```
+To run the tests in Terminal #1 (rather than the Agent) with Splitter and the two Targets still running in the other Terminal windows, do the following:
+
+- **UNIT TESTS (4)**:  `node --test test/unit/*`
+- **INTEGRATION TESTS (2)**:  `npm test -- --testPathPatterns=integration`
+
 ---
 
 *Now let's get back to how I've implemented the rest of the* **Acceptance Criteria**...
