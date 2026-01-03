@@ -9,7 +9,7 @@ Details on test design and how to run the tests are in the sections below, as we
 
 ### 2. Test Design
 
-For the objective of "**validates if data received on the ‘Target’ nodes are correct**", I took a two-pronged approach:
+For the objective of "**validates if data received on the ‘Target’ nodes are correct**", I took a two-pronged (horned?) approach:
 
 - **appOutputFile.test** - Verify the resultant events.log file written by the two target nodes matches the original event stream simulated by large_1M_events.log.
 - **targetDataReceived.test** - Monitors the data received by target_1 and target_2 nodes, then verifies:
@@ -40,7 +40,7 @@ Since each chunk is split on the first newline, and the longest line in the inpu
 **Input File**:  large_1M_events.log
 	27,888,896 bytes = 425 * 64 * 1,024 (425 chunks) + 36,096 byte final chunk.
 
-Verification rules for monitor logs:
+Verification rules for how the input stream is split across the two targets::
 
 1. Each chunk split between target_1 and target_2 should total 65,536 bytes (except for the last 36,096 bytes).
 2. Logs for target_1 should indicate a write pattern of small (part_1), large (part_2), small, large....
@@ -164,7 +164,36 @@ And upon completion:
 
 ### 4. Observations
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+When I initially ran `node app.js agent` (after first launching the two TARGETS and SPLITTER), I expected the resultant **events.log** to be identical to the original **large_1M_events.log**.  It was not!
+
+Hence, my first test compared the initial and resultant files for equality:  **targetDataReceived.test**.
+
+But I wanted more detail as to WHY they weren't identical, so I temporarily added some logging to **splitter()** and **target()** in `app.js`.
+
+Every run, **splitter()** was predictable and correct, splitting each 64K chunk of data on the first newline, writing the small 'part_1' and the larger 'part_2' alternately to SOCKIDX[0] (target_1) and SOCKIDX[1] (target_2).  Each run, it ended with the same sequence of sent bytes: ... 23/65513, 7/65529, 19/65517 & 3/36093 for the final chunk.
+
+On the two targets, it was chaos - a different outcome every time:
+
+**Run #1**:
+
+<img src="images/CRIBL_1_splitter-target-logs.png" alt="Splitter & Target Logs #1" width="800" />
+
+**Run #2**:
+
+<img src="images/CRIBL_2_splitter-target-logs.png" alt="Splitter & Target Logs #2" width="800" />
+
+**Run #3**:
+
+<img src="images/CRIBL_3_splitter-target-logs.png" alt="Splitter & Target Logs #3" width="800" />
+
+In my second integration test (**targetDataReceived.test**), I focused on checking:
+- **sameNumberChunks**:  Both targets received an equal # chunks written.
+- **allChunksTotal64K**:  The part_1 & part_2 of each chunk total 64K.
+- **goodChunksList**:  List of chunks matching small/large alternating pattern.
+
+I suspect these two integration tests will fail consistently, as there are two independent TARGETS writing asynchronously to the same file (**events.log**).
+
+Perhaps the **target()** nodes should write to a common sequential task **queue** (e.g., Bee-Queue or BullMQ), and the **queue** would do the actual file I/O in a more consistent fashion?
 
 ### 5. FedRAMP
 <img src="images/FedRAMP_TOGA_GOAT.png" alt="TOGA GOAT" align="left" width="250" style="margin-right: 20px;"/>
