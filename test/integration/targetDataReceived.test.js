@@ -5,10 +5,14 @@ const { exec } = require('child_process');
 const { promisify } = require('util');
 const execPromise = promisify(exec);
 const { describe, expect, it } = require('@jest/globals');
+const allure = require('allure-js-commons');
+
 /**
  * Integration Test Suite to verify "data received on the ‘Target’ nodes are correct".
  */
-describe('Verify output file content and data received on target nodes', () => {
+describe('Integration Tests', () => {
+  allure.suite('Integration Tests');
+  allure.label('testType', 'integration');
   var data = fs.readFileSync("agent/inputs.json");
   var json = JSON.parse(data);
   const inputPath = 'agent/' + json.monitor;

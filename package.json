@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/dc9701/Cribl_00#readme",
   "devDependencies": {
+    "allure-jest": "^3.4.5",
     "jest": "^30.2.0"
   },
   "dependencies": {
